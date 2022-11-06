@@ -15,7 +15,5 @@ export interface Weather {
     deg: number;
   };
   visibility: number;
-  // rain?: {
-  //   "1h": number;
-  // };
+  rain?: Record<string, number>;
 }

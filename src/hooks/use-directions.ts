@@ -8,6 +8,9 @@ export type Direction = {
   latitude: number;
   longitude: number;
   terrainInfo: Weather;
+  type: string;
+  distance: number;
+  duration: number;
 };
 
 type Point = {

@@ -38,14 +38,15 @@ export default function TemperatureBox() {
       />
       <Flex direction="column" ml="3">
         <Heading color="white">
-          {((weather?.main.temp ?? 32 - 32) * 59).toFixed(2)}°C
+          {(weather?.main.temp ?? 32).toFixed(2)}°C
+          {/* {(((weather?.main.temp ?? 32 - 32) * 5) / 9).toFixed(2)}°C */}
         </Heading>
         <Text fontSize="sm" color="whiteAlpha.700">
           <strong>Wind Speed: </strong> {weather?.wind.speed.toFixed(2)} m/s
         </Text>
         <Text fontSize="sm" color="whiteAlpha.700">
           <strong>Rain: </strong>
-          {weather?.rain?.["1h"] ?? "00"}mm (last 1 hour)
+          00mm (last 1 hour)
         </Text>
         <Text fontSize="sm" color="whiteAlpha.700">
           <strong>Visibility: </strong>

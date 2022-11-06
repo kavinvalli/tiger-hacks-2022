@@ -1,5 +1,10 @@
 # Create T3 App
 
+#313131
+#3A90B6
+#EFF2F3
+#5D6062
+
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
 
 ## What's next? How do I make an app with this?

@@ -32,7 +32,7 @@ async function geocodeLocation(location: string): Promise<Coords> {
   const res = await fetch(formatGeocodeURL(location));
   const data = (await res.json()) as Geocode.RootObject;
 
-  return data.features[0].center as Coords;
+  return data.features[0]!.center as Coords;
 }
 
 async function getDirections(from: Coords, to: Coords) {
@@ -203,7 +203,7 @@ export default function Map({
         );
         const route = directionsData.routes[routeIndex];
         // console.log(directionsData.routes[routeIndex]);
-        const directions = route.legs[0].steps.map(async (step) => {
+        const directions = route!.legs[0]!.steps.map(async (step) => {
           console.log(step.maneuver.location[1], step.maneuver.location[0]);
           return {
             terrainInfo:
@@ -213,6 +213,9 @@ export default function Map({
                     step.maneuver.location[0]!
                   )
                 : undefined,
+            type: step.maneuver.type,
+            distance: step.distance,
+            duration: step.duration,
             instruction: step.maneuver.instruction,
             modifier: step.maneuver.modifier,
             latitude: step.maneuver.location[1]!,
@@ -227,7 +230,7 @@ export default function Map({
           properties: {},
           geometry: {
             type: "LineString",
-            coordinates: route.geometry.coordinates,
+            coordinates: route!.geometry.coordinates,
           },
         };
 
@@ -274,7 +277,14 @@ export default function Map({
       duration: 2000,
       essential: true,
     });
-    new mapboxgl.Marker().setLngLat([panToLong!, panToLat!]).addTo(map);
+    // TODO: change marker with car icon
+    const marker = new mapboxgl.Marker().setLngLat([panToLong!, panToLat!]);
+
+    marker.addTo(map);
+
+    return () => {
+      if (marker) marker.remove();
+    };
   }, [panToLat, panToLong]);
 
   useEffect(() => {
