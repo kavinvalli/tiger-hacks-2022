@@ -175,6 +175,11 @@ impl PressureAnalyzer {
     }
 
     #[wasm_bindgen]
+    pub fn set_speed(&mut self, speed: f32) {
+        self.speed = speed;
+    }
+
+    #[wasm_bindgen]
     pub fn get_optimal_pressure(&self) -> f32 {
         // gay lussaacs law
         // P2/T2 = P1/T1

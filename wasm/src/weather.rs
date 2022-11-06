@@ -1,9 +1,8 @@
-use std::iter::Map;
-
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
+use std::collections::HashMap;
 
-#[derive(serde::Deserialize, serde::Serialize)]
+#[derive(Deserialize, Serialize)]
 struct WeatherMain {
     temp_min: f32,
     temp_max: f32,
@@ -12,24 +11,24 @@ struct WeatherMain {
     feels_like: f32,
 }
 
-#[derive(serde::Deserialize, serde::Serialize)]
+#[derive(Deserialize, Serialize)]
 struct Weather {
     main: String,
     icon: String,
 }
 
-#[derive(serde::Deserialize, serde::Serialize)]
+#[derive(Deserialize, Serialize)]
 struct Wind {
     speed: f32,
     deg: f32,
 }
 
 
-#[derive(serde::Deserialize, serde::Serialize)]
+#[derive(Deserialize, Serialize)]
 struct WeatherInfo {
     weather: Vec<Weather>,
     wind: Wind,
-    // rain: Map<String, f32>,
+    rain: Option<HashMap<String, f32>>,
     visibility: i32,
     main: WeatherMain,
 }
@@ -53,7 +52,7 @@ impl Climate {
         let response = self
             .reqwest_client
             .get(format!(
-            "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=imperial",
+            "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric",
             lat, lon, "5c3012118d61275debb919101081bf10"
         ))
             .send()
